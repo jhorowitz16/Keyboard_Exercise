@@ -1,0 +1,10 @@
+.keyboard {
+    background: beige;
+    width: 445px;
+    margin: 0 auto;
+    height: 315px;
+    display: flex;
+
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
