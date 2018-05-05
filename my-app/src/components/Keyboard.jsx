@@ -5,13 +5,26 @@ import '../css/partial.css';
 
 class Keyboard extends Component {
 
+  handleKeyPress(note) {
+    console.log(note);
+    // console.log(note.target);
+    // console.log(note.target);
+  }
+
   renderPartialKey(isBlack) {
     const styles = isBlack ? 'partial--black' : 'partial--white';
 
     return (
-      <div className={'partial ' + styles}>
-      </div>
+      <div className={'partial ' + styles}/>
     );
+  }
+
+  renderKey(note) {
+    const onClick = this.handleKeyPress.bind(this, note);
+
+    return (
+      <Key note={ note } onClick={ onClick }/>
+    )
   }
 
   renderBlackKeys() {
@@ -28,23 +41,28 @@ class Keyboard extends Component {
     return (
       <div className='keyboard--black'>
         { partials }
-
       </div>
     )
+  }
+
+  renderWhiteKeys() {
+
+    const notes = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
+
+    const keys = notes.map(note => this.renderKey(note));
+
+    return (
+      <div className='keyboard--white'>
+        { keys }
+      </div>
+    );
   }
 
   render() {
     return (
       <div className='keyboard'>
-        <div className='keyboard--white'>
-          <Key note={'C'}/>
-          <Key note={'D'}/>
-          <Key note={'E'}/>
-          <Key note={'F'}/>
-          <Key note={'G'}/>
-          <Key note={'A'}/>
-          <Key note={'B'}/>
-        </div>
+
+      { this.renderWhiteKeys() }
 
       { this.renderBlackKeys() }
 

@@ -5,20 +5,19 @@ import '../css/key.css';
 class Key extends Component {
 
   static propTypes = {
-    note: PropTypes.string
+    note: PropTypes.string,
+    onClick: PropTypes.func
   };
 
   render() {
-    console.log(this.props.note);
+    const {note, onClick} = this.props;
+
     return (
-      <div className='key'>
-        <div className='key__note'>
-          { this.props.note }
-        </div>
+      <div className='key' onClick={ onClick }>
+        <div className='key__note'> { note } </div>
       </div>
     );
   }
-
 }
 
 export default Key;
