@@ -1,14 +1,25 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import Key from './Key';
 import '../css/keyboard.css';
 import '../css/partial.css';
+import Display from "./Display";
 
 class Keyboard extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: ''
+    };
+  }
+
   handleKeyPress(note) {
     console.log(note);
-    // console.log(note.target);
-    // console.log(note.target);
+    const oldText = this.state.text;
+    this.setState({
+      text: oldText + note + ' '
+    });
   }
 
   renderPartialKey(isBlack) {
@@ -28,31 +39,28 @@ class Keyboard extends Component {
   }
 
   renderBlackKeys() {
-    const gaps = [0, 0, 1,
-      1, 0, 1,
-      1, 0, 0,
-      0, 0, 1,
-      1, 0, 1,
-      1, 0, 1,
-      1, 0, 0];
-
-    const partials = gaps.map(i => this.renderPartialKey(i));
+    const gaps    = [0, 0, 1,
+                     1, 0, 1,
+                     1, 0, 0,
+                     0, 0, 1,
+                     1, 0, 1,
+                     1, 0, 1,
+                     1, 0, 0],
+          partials = gaps.map(i => this.renderPartialKey(i));
 
     return (
-      <div className='keyboard--black'>
+      <div className='keyboard__keys--black'>
         { partials }
       </div>
     )
   }
 
   renderWhiteKeys() {
-
-    const notes = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
-
-    const keys = notes.map(note => this.renderKey(note));
+    const notes = ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
+          keys  = notes.map(note => this.renderKey(note));
 
     return (
-      <div className='keyboard--white'>
+      <div className='keyboard__keys--white'>
         { keys }
       </div>
     );
@@ -61,11 +69,15 @@ class Keyboard extends Component {
   render() {
     return (
       <div className='keyboard'>
+        <div className='keyboard__keys'>
+          { this.renderWhiteKeys() }
 
-      { this.renderWhiteKeys() }
+          { this.renderBlackKeys() }
+        </div>
 
-      { this.renderBlackKeys() }
-
+        <Display
+          text={ this.state.text }
+        />
       </div>
     );
   }

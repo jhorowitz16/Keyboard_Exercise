@@ -1,12 +1,12 @@
-.keyboard {
+.keyboard__keys {
     position: relative;
     background: beige;
     width: 445px;
-    margin: 0 auto;
+    margin: 200px auto 0;
     height: 310px;
 }
 
-.keyboard--white {
+.keyboard__keys--white {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -15,9 +15,15 @@
     border-right: 1px solid black;
 }
 
-.keyboard--black {
+.keyboard__keys--black {
     position: absolute;
     width: 100%;
     height: 200px;
     display: flex;
+}
+
+.keyboard__display {
+    background: lightblue;
+    width: 100%;
+    height: 100%;
 }

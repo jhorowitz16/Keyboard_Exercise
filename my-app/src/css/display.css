@@ -1,0 +1,16 @@
+.display {
+    background: beige;
+
+    width: 50%;
+    margin: 100px auto;
+    padding: 30px;
+    white-space: initial;
+    border: 2px dashed black;
+    text-align: left;
+}
+
+.display__text {
+    min-height: 28px;
+    font-size: 24px;
+
+}
