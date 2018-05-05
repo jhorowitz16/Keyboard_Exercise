@@ -1,10 +1,23 @@
 .keyboard {
+    position: relative;
     background: beige;
     width: 445px;
     margin: 0 auto;
-    height: 315px;
-    display: flex;
+    height: 310px;
+}
 
+.keyboard--white {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
     border-left: 1px solid black;
     border-right: 1px solid black;
+}
+
+.keyboard--black {
+    position: absolute;
+    width: 100%;
+    height: 200px;
+    display: flex;
 }
