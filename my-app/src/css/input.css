@@ -1,0 +1,14 @@
+.input {
+    width: 100%;
+    font-size: 18px;
+    font-family: sans-serif;
+}
+
+.input__button {
+    width: 80px;
+    height: 30px;
+    background: lightgreen;
+    margin: 20px auto;
+    border-radius: 10px;
+    display: block;
+}

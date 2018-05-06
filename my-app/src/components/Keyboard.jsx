@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Key from './Key';
+import Input from './Input';
 import '../css/keyboard.css';
 import '../css/partial.css';
 import Display from "./Display";
@@ -19,8 +20,9 @@ class Keyboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
-      clicked: new Array(7).fill(0)
+      clicked: new Array(7).fill(0),
+      input: '',
+      text: ''
     };
   }
 
@@ -41,6 +43,24 @@ class Keyboard extends Component {
       text: oldText + note + ' ',
       clicked: newClicked
     });
+  }
+
+  handleInputChange(text) {
+    const newValue = text.target.value;
+    debugger;
+    this.setState({
+      text: newValue
+    });
+  }
+
+  renderInput(text) {
+    const onChange = this.handleInputChange.bind(this);
+
+    return (
+      <Input
+        onChange={ onChange }
+      />
+    )
   }
 
   renderPartialKey(isBlack) {
@@ -108,11 +128,7 @@ class Keyboard extends Component {
           text={ this.state.text }
         />
 
-        <textarea rows="4" cols="50">
-
-        </textarea>
-
-        <button></button>
+        { this.renderInput( this.state.text ) }
 
       </div>
     );
