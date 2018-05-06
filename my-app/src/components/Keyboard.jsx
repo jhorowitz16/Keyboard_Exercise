@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import Key from './Key';
 import '../css/keyboard.css';
 import '../css/partial.css';
@@ -7,18 +6,40 @@ import Display from "./Display";
 
 class Keyboard extends Component {
 
+  static noteToIndex = {
+    'C': 0,
+    'D': 1,
+    'E': 2,
+    'F': 3,
+    'G': 4,
+    'A': 5,
+    'B': 6
+  };
+
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      text: '',
+      clicked: new Array(7).fill(0)
     };
   }
 
+  shouldComponentUpdate(nextState) {
+    return this.state.clicked !== nextState.clicked
+      ||  this.state.text !== nextState.clicked;
+  }
+
   handleKeyPress(note) {
-    console.log(note);
-    const oldText = this.state.text;
+    const idx     = Keyboard.noteToIndex[note],
+          oldText = this.state.text,
+          newClicked = new Array(7).fill(0);
+
+    // every key but the current pressed one is toggled off
+    newClicked[idx] = 1;
+
     this.setState({
-      text: oldText + note + ' '
+      text: oldText + note + ' ',
+      clicked: newClicked
     });
   }
 
@@ -30,11 +51,15 @@ class Keyboard extends Component {
     );
   }
 
-  renderKey(note) {
+  renderKey(note, isHighlighted) {
     const onClick = this.handleKeyPress.bind(this, note);
 
     return (
-      <Key note={ note } onClick={ onClick }/>
+      <Key
+        isHighlighted={ isHighlighted }
+        note={ note }
+        onClick={ onClick }
+      />
     )
   }
 
@@ -56,8 +81,12 @@ class Keyboard extends Component {
   }
 
   renderWhiteKeys() {
-    const notes = ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
-          keys  = notes.map(note => this.renderKey(note));
+    const notes = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
+
+    const keys = [];
+    for (var i = 0; i < notes.length; i++) {
+      keys.push(this.renderKey(notes[i], this.state.clicked[i]));
+    }
 
     return (
       <div className='keyboard__keys--white'>
@@ -78,6 +107,13 @@ class Keyboard extends Component {
         <Display
           text={ this.state.text }
         />
+
+        <textarea rows="4" cols="50">
+
+        </textarea>
+
+        <button></button>
+
       </div>
     );
   }

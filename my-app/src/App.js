@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Keyboard from './components/Keyboard'
-import Display from './components/Display';
 import './App.css';
 
 class App extends Component {
