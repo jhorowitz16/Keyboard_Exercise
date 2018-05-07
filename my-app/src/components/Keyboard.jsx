@@ -4,6 +4,7 @@ import Input from './Input';
 import '../css/keyboard.css';
 import '../css/partial.css';
 import Display from "./Display";
+import { sleep } from '../helpers'
 
 class Keyboard extends Component {
 
@@ -20,6 +21,8 @@ class Keyboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isAnimating: false,
+      animationDelays: null,
       clicked: new Array(7).fill(0),
       input: '',
       text: ''
@@ -47,18 +50,39 @@ class Keyboard extends Component {
 
   handleInputChange(text) {
     const newValue = text.target.value;
-    debugger;
     this.setState({
       text: newValue
     });
   }
 
+  handleSubmitInput() {
+    const keys = this.state.text;
+    const noteArray = keys.split(',').map(c => c.toUpperCase());
+    const self = this;
+    console.log(keys);
+    console.log(noteArray);
+
+    noteArray.forEach(function(note) {
+      console.log("here with ", note);
+      sleep(1000);
+      const newClicked = new Array(7).fill(0);
+      newClicked[Keyboard.noteToIndex[note]] = 1;
+      self.setState({
+        clicked: newClicked
+      });
+
+    });
+  }
+
+
   renderInput(text) {
     const onChange = this.handleInputChange.bind(this);
+    const onSubmit = this.handleSubmitInput.bind(this);
 
     return (
       <Input
         onChange={ onChange }
+        onSubmit={ onSubmit }
       />
     )
   }
@@ -101,9 +125,9 @@ class Keyboard extends Component {
   }
 
   renderWhiteKeys() {
-    const notes = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
+    const notes = ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
+          keys  = [];
 
-    const keys = [];
     for (var i = 0; i < notes.length; i++) {
       keys.push(this.renderKey(notes[i], this.state.clicked[i]));
     }

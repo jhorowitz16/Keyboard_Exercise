@@ -5,7 +5,8 @@ import '../css/input.css';
 class Input extends Component {
 
   static propTypes = {
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onSubmit: PropTypes.func
   };
 
   render() {
@@ -13,7 +14,9 @@ class Input extends Component {
       <div className='input' >
         <textarea rows="4" cols="50" onChange={ this.props.onChange }/>
 
-        <button className='input__button'>Play</button>
+        <button className='input__button' onClick={ this.props.onSubmit }>
+          Play
+        </button>
 
       </div>
     );

@@ -21,3 +21,26 @@
 .key--highlighted {
     background: lightgreen;
 }
+
+.key--animating {
+    animation: playing;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes playing {
+    0% {
+        background: beige;
+    }
+
+    5% {
+        background: lightgreen;
+    }
+    20% {
+        background: lightgreen;
+    }
+    25% {
+        background: beige;
+    }
+
+}
