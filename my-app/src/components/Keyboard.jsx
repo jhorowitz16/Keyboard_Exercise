@@ -21,17 +21,20 @@ class Keyboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAnimating: false,
-      animationDelays: null,
       clicked: new Array(7).fill(0),
       input: '',
+      slow: false,
       text: ''
     };
   }
 
   shouldComponentUpdate(nextState) {
+    if (this.state.slow) {
+      sleep(1000);
+    }
+
     return this.state.clicked !== nextState.clicked
-      ||  this.state.text !== nextState.clicked;
+      ||  this.state.text !== nextState.text;
   }
 
   handleKeyPress(note) {
@@ -57,23 +60,40 @@ class Keyboard extends Component {
 
   handleSubmitInput() {
     const keys = this.state.text;
-    const noteArray = keys.split(',').map(c => c.toUpperCase());
+    const noteArray = keys.split(',').map(c => c.toUpperCase().trim());
     const self = this;
     console.log(keys);
     console.log(noteArray);
+    noteArray.push('N'); // end with a reset
 
     noteArray.forEach(function(note) {
       console.log("here with ", note);
-      sleep(1000);
       const newClicked = new Array(7).fill(0);
-      newClicked[Keyboard.noteToIndex[note]] = 1;
-      self.setState({
-        clicked: newClicked
-      });
+      debugger;
+      if (noteArray.includes(note)) {
+        newClicked[Keyboard.noteToIndex[note]] = 1;
+      }
+      console.log(">>> ", newClicked);
 
+      setTimeout(() => {
+        self.setState({
+          clicked: newClicked,
+          slow: true
+        })
+      }, 1000);
     });
+
+
+    this.resetKeyboard();
   }
 
+  resetKeyboard() {
+    const newClicked = new Array(7).fill(0);
+    this.setState({
+      clicked: newClicked,
+      slow: false
+    });
+  }
 
   renderInput(text) {
     const onChange = this.handleInputChange.bind(this);
@@ -129,7 +149,7 @@ class Keyboard extends Component {
           keys  = [];
 
     for (var i = 0; i < notes.length; i++) {
-      keys.push(this.renderKey(notes[i], this.state.clicked[i]));
+      keys.push(this.renderKey(notes[i], this.state.clicked[i] === 1));
     }
 
     return (

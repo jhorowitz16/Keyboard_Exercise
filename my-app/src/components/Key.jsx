@@ -7,15 +7,17 @@ class Key extends Component {
   static propTypes = {
     note: PropTypes.string,
     isHighlighted: PropTypes.bool,
-    isAnimating: PropTypes.bool,
-    animationDelay: PropTypes.bool,
     onClick: PropTypes.func
   };
 
+  shouldComponentUpdate(nextProps) {
+    return this.props.isHighlighted !== nextProps.isHighlighted;
+  }
+
   render() {
-    const { note, isAnimating, isHighlighted, onClick } = this.props;
-    const styles = 'key' + (isHighlighted ? ' key--highlighted' : '')
-                  + (isAnimating ? ' key--animating' : '');
+    const { note, isHighlighted, onClick } = this.props;
+    const styles = 'key' + (isHighlighted ? ' key--highlighted' : '');
+
 
     return (
       <div className={ styles } onClick={ onClick }>
