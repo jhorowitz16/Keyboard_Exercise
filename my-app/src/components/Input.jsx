@@ -12,12 +12,16 @@ class Input extends Component {
   render() {
     return (
       <div className='input' >
-        <textarea rows="4" cols="50" onChange={ this.props.onChange }/>
+        <textarea
+          className='input__textarea'
+          cols="5"
+          onChange={ this.props.onChange }
+          rows="1"
+        />
 
         <button className='input__button' onClick={ this.props.onSubmit }>
           Play
         </button>
-
       </div>
     );
   }

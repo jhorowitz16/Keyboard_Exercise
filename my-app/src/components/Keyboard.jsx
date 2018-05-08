@@ -31,7 +31,7 @@ class Keyboard extends Component {
 
   shouldComponentUpdate(nextState) {
     return this.state.clicked !== nextState.clicked
-      ||  this.state.text !== nextState.clicked;
+      ||  this.state.text !== nextState.text;
   }
 
   handleKeyPress(note) {
@@ -50,34 +50,30 @@ class Keyboard extends Component {
 
   handleInputChange(text) {
     const newValue = text.target.value;
+
     this.setState({
-      text: newValue
+      input: newValue
     });
   }
 
   handleSubmitInput() {
-    const keys = this.state.text;
-    const noteArray = keys.split(',').map(c => c.toUpperCase());
-    const self = this;
-    console.log(keys);
-    console.log(noteArray);
+    const keys = this.state.input,
+          noteArray = keys.split(',').map(c => c.toUpperCase()),
+          self = this;
 
     noteArray.forEach(function(note) {
-      console.log("here with ", note);
       sleep(1000);
       const newClicked = new Array(7).fill(0);
       newClicked[Keyboard.noteToIndex[note]] = 1;
       self.setState({
         clicked: newClicked
       });
-
     });
   }
 
-
-  renderInput(text) {
-    const onChange = this.handleInputChange.bind(this);
-    const onSubmit = this.handleSubmitInput.bind(this);
+  renderInput() {
+    const onChange = this.handleInputChange.bind(this),
+          onSubmit = this.handleSubmitInput.bind(this);
 
     return (
       <Input
@@ -129,7 +125,7 @@ class Keyboard extends Component {
           keys  = [];
 
     for (var i = 0; i < notes.length; i++) {
-      keys.push(this.renderKey(notes[i], this.state.clicked[i]));
+      keys.push(this.renderKey(notes[i], this.state.clicked[i] === 1));
     }
 
     return (
@@ -152,7 +148,7 @@ class Keyboard extends Component {
           text={ this.state.text }
         />
 
-        { this.renderInput( this.state.text ) }
+        { this.renderInput() }
 
       </div>
     );

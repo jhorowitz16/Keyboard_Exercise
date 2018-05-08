@@ -12,3 +12,8 @@
     border-radius: 10px;
     display: block;
 }
+
+.input__textarea {
+    font-size: 24px;
+    text-align: center;
+}

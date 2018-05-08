@@ -13,8 +13,8 @@ class Key extends Component {
   };
 
   render() {
-    const { note, isAnimating, isHighlighted, onClick } = this.props;
-    const styles = 'key' + (isHighlighted ? ' key--highlighted' : '')
+    const { note, isAnimating, isHighlighted, onClick } = this.props,
+          styles = 'key' + (isHighlighted ? ' key--highlighted' : '')
                   + (isAnimating ? ' key--animating' : '');
 
     return (
